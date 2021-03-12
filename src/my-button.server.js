@@ -18,7 +18,11 @@ export const MyOtherButton = (attrs, children) => {
 };
 
 export const MyOtherOtherButton = (attrs, children) => {
-  return `<my-button>${withShadow(html(attrs))}${children}</my-button>`;
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      reject(new Error("Throwing an error to test boundaries"));
+    }, 3000);
+  });
 };
 
 export const ErrorBoundary = (children) => {
