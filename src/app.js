@@ -6,7 +6,7 @@ import {
 } from "./my-button.server.js";
 import { html } from "./util.js";
 
-export default html`
+export default (attrs) => html`
   <!DOCTYPE html>
   <html lang="en">
     <head>
@@ -22,10 +22,11 @@ export default html`
         incrementally rehydrated via the browser.
       </p>
       <main id="main">
-        ${MyButton(undefined, "Streamed Button 1")}
-        ${MyOtherButton(undefined, "Streamed Button 2")}
+        ${MyButton(attrs.btn1, () => "Streamed Button 1")}
+        ${MyOtherButton(attrs.btn2, () => "Streamed Button 2")}
         ${ErrorBoundary(
-          () => html` ${MyOtherOtherButton(undefined, "Streamed Button 3")} `
+          () =>
+            html` ${MyOtherOtherButton(attrs.btn3, () => "Streamed Button 3")} `
         )}
       </main>
       <script src="my-button.js" type="module"></script>

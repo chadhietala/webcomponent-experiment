@@ -1,20 +1,20 @@
 import { withShadow } from "./util.js";
+import axios from "axios";
 
-export const html = (attrs) => `<button><slot></slot></button>`;
+export const html = (attrs) => `${attrs.name}<button><slot></slot></button>`;
 
 export const MyButton = (attrs, children) =>
   new Promise((resolve) => {
     setTimeout(() => {
-      resolve(`<my-button>${withShadow(html(attrs))}${children}</my-button>`);
+      resolve(`<my-button>${withShadow(html(attrs))}${children()}</my-button>`);
     }, 2000);
   });
 
-export const MyOtherButton = (attrs, children) => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(`<my-button>${withShadow(html(attrs))}${children}</my-button>`);
-    }, 4000);
-  });
+export const MyOtherButton = async (attrs, children) => {
+  const response = await axios.get("http://localhost:1234/data");
+  return `${response.data.randomNumber}<my-button>${withShadow(
+    html(attrs)
+  )}${children()}</my-button>`;
 };
 
 export const MyOtherOtherButton = (attrs, children) => {
