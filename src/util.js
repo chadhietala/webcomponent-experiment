@@ -35,9 +35,7 @@ function incrementalZip(strings, exprs) {
                 err = e;
               }
 
-              if (expr === "ERROR_BOUNDARY") {
-                expr = "";
-              } else if (err) {
+              if (err) {
                 expr = err;
               }
 
